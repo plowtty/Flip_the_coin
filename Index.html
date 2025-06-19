@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Link to external CSS stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive virtual coin toss game - Heads or Tails">
+    
+    <title>Coin Flip Game | Virtual Coin Toss</title>
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header with navigation -->
+    <header class="header" role="banner">
+        <nav class="nav" role="navigation" aria-label="Main Navigation">
+            <div class="nav-container">
+                <h1 class="logo" aria-label="Coin Flip Game">
+                    <span class="coin-icon" role="img" aria-label="Coin">🪙</span>
+                    Coin Flip
+                </h1>
+                <div class="nav-links">
+                    <button class="nav-btn" id="statsBtn" aria-label="View statistics">
+                        <span class="icon">📊</span>
+                        Stats
+                    </button>
+                    <button class="nav-btn" id="resetBtn" aria-label="Reset game">
+                        <span class="icon">🔄</span>
+                        Reset
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Game Section -->
+    <main class="main-content" role="main">
+        <section class="game-container" aria-labelledby="game-title">
+            <!-- Game Title -->
+            <div class="title-section">
+                <h2 id="game-title" class="game-title">
+                    Flip the Coin
+                </h2>
+                <p class="game-subtitle">
+                    Heads or Tails? Click and find out!
+                </p>
+            </div>
+
+            <!-- Coin Display -->
+            <div class="coin-section" role="region" aria-labelledby="coin-display">
+                <div class="coin-container">
+                    <div class="coin" id="coin" role="img" aria-label="Virtual Coin">
+                        <div class="coin-side coin-heads" aria-hidden="true">
+                            <span class="coin-text">HEADS</span>
+                            <div class="coin-design heads-design"></div>
+                        </div>
+                        <div class="coin-side coin-tails" aria-hidden="true">
+                            <span class="coin-text">TAILS</span>
+                            <div class="coin-design tails-design"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Result Message -->
+                <div class="result-container">
+                    <div id="result" class="result-display" role="status" aria-live="polite" aria-atomic="true">
+                        <span class="result-text">Click the button to start!</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Controls -->
+            <div class="controls-section" role="region" aria-labelledby="game-controls">
+                <h3 id="game-controls" class="sr-only">Game Controls</h3>
+                <button 
+                    class="flip-btn" 
+                    id="flipBtn" 
+                    type="button"
+                    aria-describedby="flip-btn-description"
+                >
+                    <span class="btn-icon" role="img" aria-label="Flip">🎯</span>
+                    <span class="btn-text">Flip Coin</span>
+                </button>
+                <p id="flip-btn-description" class="sr-only">
+                    Click to flip the coin and see if it lands on heads or tails
+                </p>
+            </div>
+
+            <!-- Statistics Panel -->
+            <div class="stats-section" role="region" aria-labelledby="stats-title">
+                <h3 id="stats-title" class="stats-title">Statistics</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" role="img" aria-label="Total flips">🎲</div>
+                        <div class="stat-content">
+                            <span class="stat-label">Total</span>
+                            <span class="stat-value" id="totalFlips">0</span>
+                        </div>
+                    </div>
+                    <div class="stat-card heads-card">
+                        <div class="stat-icon" role="img" aria-label="Heads">👑</div>
+                        <div class="stat-content">
+                            <span class="stat-label">Heads</span>
+                            <span class="stat-value" id="headsCount">0</span>
+                        </div>
+                    </div>
+                    <div class="stat-card tails-card">
+                        <div class="stat-icon" role="img" aria-label="Tails">⚔️</div>
+                        <div class="stat-content">
+                            <span class="stat-label">Tails</span>
+                            <span class="stat-value" id="tailsCount">0</span>
+                        </div>
+                    </div>
+                    <div class="stat-card percentage-card">
+                        <div class="stat-icon" role="img" aria-label="Heads percentage">📈</div>
+                        <div class="stat-content">
+                            <span class="stat-label">% Heads</span>
+                            <span class="stat-value" id="headsPercentage">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer-content">
+            <p class="footer-text">
+                Built with 
+                <span class="heart" role="img" aria-label="love">❤️</span> 
+                using HTML, CSS, and JavaScript
+            </p>
+            <div class="tech-stack">
+                <span class="tech-badge html" aria-label="HTML5">HTML5</span>
+                <span class="tech-badge css" aria-label="CSS3">CSS3</span>
+                <span class="tech-badge js" aria-label="JavaScript">JS</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay (appears during startup or heavy operations) -->
+    <div class="loading-overlay" id="loadingOverlay" aria-hidden="true">
+        <div class="loading-spinner" role="status" aria-label="Loading">
+            <div class="spinner"></div>
+            <span class="loading-text">Preparing the coin...</span>
+        </div>
+    </div>
+
+    <!-- Screen Reader Only Element for live updates -->
+    <div class="sr-only" id="live-region" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- JavaScript logic should be in js/ folder -->
+    <script src="script.js"></script>
+</body>
+</html>
