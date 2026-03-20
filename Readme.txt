@@ -1,61 +1,103 @@
 # Coin Flip Game
 
-An interactive virtual coin toss game built with **HTML**, **CSS**, and **JavaScript**.
+A modern coin flip demo focused on polished UX, motion, and clean frontend architecture.
 
 ## Features
 
-- Realistic coin flip animation
-- Tracks statistics: total flips, heads, tails, and heads percentage
-- Reset statistics button
-- Stats panel with smooth highlight
-- Keyboard accessibility (flip, reset, show stats)
-- Responsive design for desktop and mobile
-- Loading overlay on startup
-- Accessible for screen readers
-- Exposes a global API (`window.CoinFlipAPI`) for integrations
+- Modern UI with dark/light theme toggle
+- Premium coin animation with dynamic motion on each flip
+- Dynamic shadow under the coin synchronized with animation
+- Subtle generated sound effects (flip + landing) using Web Audio API
+- Statistics: total, heads, tails, heads percentage
+- Streak tracking: current streak + best streak
+- Recent history panel (last 5 flips)
+- Persistent state in `localStorage` (stats, streak, history, theme)
+- Accessible interactions (`aria-live`, keyboard controls, focus-visible)
+- Respects reduced-motion user preference
+- Responsive layout for desktop and mobile
+- Global API via `window.CoinFlipAPI`
 
 ## Project Structure
 
 ```
-Index.html      # Main HTML file
-style.css       # Styles and animations
-script.js       # Game logic and UI
+index.html                  # App layout + module entrypoint
+style.css                   # Theme, UI system, responsive design, motion styles
+js/main.js                  # Bootstrap + global API exposure
+js/core/Coin.js             # Domain model and coin stats logic
+js/ui/UI.js                 # DOM rendering, animation, sound, interactions
+js/game/CoinFlipGame.js     # Orchestrator and state workflow
+js/utils/GameUtils.js       # Feature detection + helpers
+.github/workflows/deploy-pages.yml  # Auto-deploy to GitHub Pages
+Readme.txt                  # Project documentation
 ```
 
-## Usage
+## Run Locally
 
-1. Open `Index.html` in your browser.
-2. Click "Flip Coin" or press Space/Enter to flip the coin.
-3. View results and statistics below the coin.
-4. Use "Reset" to clear stats, or "Stats" to highlight the stats panel.
+Option 1 (quick):
+1. Open `index.html` directly in your browser.
+
+Option 2 (recommended):
+1. Start a local static server:
+
+```bash
+npx --yes serve .
+```
+
+2. Open:
+- `http://localhost:3000`
 
 ## Keyboard Shortcuts
 
 - **Space / Enter**: Flip the coin
-- **R**: Reset statistics
-- **S**: Highlight stats panel
+- **R**: Reset all game statistics
+- **S**: Scroll/highlight stats section
+- **T**: Toggle light/dark theme
 
 ## Global API
 
-You can control the game from the browser console:
+You can control the app from browser console:
 
 ```js
-window.CoinFlipAPI.flip();      // Flip the coin
-window.CoinFlipAPI.getStats();  // Get current statistics
-window.CoinFlipAPI.reset();     // Reset statistics
-window.CoinFlipAPI.isReady();   // Check if the game is ready
+window.CoinFlipAPI.flip();      // Trigger coin flip
+window.CoinFlipAPI.getStats();  // Return stats + streak + history
+window.CoinFlipAPI.reset();     // Reset state
+window.CoinFlipAPI.isReady();   // App ready status
 ```
 
-## Technologies
+## Publish Demo (Recommended)
+
+For portfolio/recruiters, deploy a public URL:
+- GitHub Pages (already configured via workflow)
+- Netlify
+- Vercel
+
+Suggested order:
+1. Push latest code to GitHub
+2. Deploy to one platform
+3. Add public URL to repository description and CV
+
+Expected GitHub Pages URL for this repository:
+- `https://plowtty.github.io/Flip_the_coin/`
+
+## Tech Stack
 
 - HTML5
-- CSS3 (with animations and glassmorphism)
-- JavaScript (ES6+)
+- CSS3
+- Vanilla JavaScript (ES6+)
+- Web Animations API
+- Web Audio API
 
-## Credits
+## Current Architecture Note
 
-Built by [Your Name].
+The app now uses a modular structure with ES Modules and folder separation.
 
----
+- `Coin` handles domain logic (stats and percentage)
+- `UI` handles rendering/interaction (theme, animation, audio, history view)
+- `CoinFlipGame` coordinates app state and flows
+- `GameUtils` isolates environment checks and helpers
 
-Enjoy flipping the coin and testing your luck!
+For future scaling, the next optional step is splitting `UI` into dedicated managers:
+- `ThemeManager`
+- `AudioManager`
+- `MotionManager`
+- `HistoryRenderer`
